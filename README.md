@@ -1,6 +1,6 @@
 # ProPodium Events & Hospitality
 
-Institutional website for ProPodium Events & Hospitality: Home, About, Partners and Contact.
+Institutional website for ProPodium Events & Hospitality: Home, About, Services, Events (five category pages and past events), Partners and Contact.
 
 Static HTML and CSS, no build step needed to host it. Upload the files at the root of this repository to any static host.
 
