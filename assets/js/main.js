@@ -10,9 +10,35 @@
 })();
 
 (function () {
+  var btn = document.getElementById('review-toggle');
+  var wrap = document.getElementById('leave-review');
+  if (!btn || !wrap) return;
+  btn.addEventListener('click', function () {
+    var open = wrap.hidden;
+    wrap.hidden = !open;
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    if (open) { var f = document.getElementById('r-name'); if (f) f.focus(); }
+  });
+})();
+function ppReviewCheck(form, status) {
+  var rating = form.querySelector('input[name="rating"]:checked');
+  if (!form.name.value.trim() || !form.review.value.trim() || !rating) {
+    status.className = 'form-status error';
+    status.textContent = 'Please add your name, a rating and your review.';
+    return null;
+  }
+  if (!form.consent.checked) {
+    status.className = 'form-status error';
+    status.textContent = 'Please tick the box so we may display your review.';
+    return null;
+  }
+  return rating.value;
+}
+
+(function () {
   var form = document.getElementById('contact-form');
   if (!form) return;
-  var TO = 'EMAIL_AQUI';
+  var TO = 'info@propodiumevents.com';
   form.addEventListener('submit', function (e) {
     e.preventDefault();
     var status = document.getElementById('form-status');
@@ -28,5 +54,21 @@
     window.location.href = 'mailto:' + TO + '?subject=' + encodeURIComponent('Quote request from ' + name) + '&body=' + encodeURIComponent(body);
     status.className = 'form-status';
     status.textContent = 'Your email app should open with the message ready to send.';
+  });
+})();
+
+(function () {
+  var form = document.getElementById('review-form');
+  if (!form) return;
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var status = document.getElementById('review-status');
+    var rating = ppReviewCheck(form, status);
+    if (!rating) return;
+    var body = 'Name: ' + form.name.value.trim() + '\nCompany / Role: ' + form.role.value + '\nEvent: ' + form.event.value +
+      '\nRating: ' + rating + ' of 5\nConsent to display on the website: yes\n\n' + form.review.value;
+    window.location.href = 'mailto:info@propodiumevents.com?subject=' + encodeURIComponent('Website review from ' + form.name.value.trim()) + '&body=' + encodeURIComponent(body);
+    status.className = 'form-status';
+    status.textContent = 'Thank you! Your review will appear on our site once approved. Your email app opens with the review ready to send.';
   });
 })();

@@ -437,3 +437,49 @@ fieldset.field { border: 0; padding: 0; margin: 0; }
 
 .event-copy .media-ph-box { aspect-ratio: 16 / 7; }
 .svc-grid .media-ph-box { aspect-ratio: 4 / 3; }
+
+/* ---------- v3: final home (Nov 26 "Website Changes") ---------- */
+.hero-line { gap: 8px 0; }
+.hero-line span + span::before { content: "\00B7"; margin: 0 14px; color: var(--gold); }
+.services.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (max-width: 760px) { .services.two { grid-template-columns: 1fr; } }
+.package { position: relative; }
+.pkg-num { display: block; font-family: var(--font-display); font-weight: 800; font-size: 1.6rem; color: var(--teal); line-height: 1; margin-bottom: 14px; }
+.pkg-note { margin: 28px 0 0; display: flex; align-items: center; gap: 10px; font-weight: 600; color: var(--ink); }
+.steps { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; counter-reset: none; }
+.step-card { background: var(--paper); border-radius: var(--radius); padding: 28px; }
+.step-card p { margin: 0; color: var(--slate); }
+.step-card strong { display: block; color: var(--ink); font-family: var(--font-display); font-size: 1.15rem; margin-bottom: 6px; }
+.step-num { display: inline-grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: var(--night); color: var(--gold); font-family: var(--font-display); font-weight: 800; margin-bottom: 16px; }
+.steps-cta { margin: 32px 0 0; }
+@media (max-width: 860px) { .steps { grid-template-columns: 1fr; } }
+.also-title { font-size: .85rem; letter-spacing: .2em; text-transform: uppercase; color: var(--teal); margin: 0 0 16px; font-weight: 700; }
+.ev-list { margin: 0; display: grid; gap: 0; border-top: 1px solid var(--line-dark); }
+.ev-row { display: grid; grid-template-columns: minmax(0, 18em) minmax(0, 1fr); gap: 8px 32px; padding: 20px 0; border-bottom: 1px solid var(--line-dark); }
+.ev-row dt { font-family: var(--font-display); font-weight: 700; }
+.ev-row dt a { color: var(--teal-light); text-decoration: none; }
+.ev-row dt a:hover { text-decoration: underline; }
+.ev-row dd { margin: 0; color: #C9D6DA; }
+@media (max-width: 760px) { .ev-row { grid-template-columns: 1fr; } }
+.ev-more { margin: 32px 0 0; }
+.disclaimer { margin: 24px 0 0; font-size: .85rem; color: var(--mist); max-width: 60em; }
+.reviews-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 16px; margin-bottom: 28px; }
+.review { margin: 0; background: var(--paper); border-radius: var(--radius); padding: 26px; display: grid; gap: 12px; }
+.review blockquote { margin: 0; }
+.review figcaption { color: var(--slate); font-size: .95rem; }
+.review-event { display: block; font-size: .85rem; color: var(--teal); font-weight: 600; }
+.stars .s { color: var(--line); font-size: 1.1rem; }
+.stars .s.on { color: var(--gold); }
+.review-form-wrap { margin-top: 24px; max-width: 760px; }
+.rating { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+.rate { display: inline-flex; align-items: center; gap: 8px; background: var(--white); border: 1px solid var(--line); border-radius: 999px; padding: 8px 14px; font-family: var(--font-body); font-weight: 500; font-size: .92rem; cursor: pointer; }
+.rate input { accent-color: var(--teal); margin: 0; }
+.consent { display: flex; gap: 10px; align-items: flex-start; font-size: .95rem; }
+.consent input { width: 18px; height: 18px; margin-top: 3px; accent-color: var(--teal); flex: none; }
+.network-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 20px; background: var(--paper); border-radius: var(--radius); padding: 26px 30px; }
+.network-row p { margin: 0; }
+.cta-sub { margin: 12px 0 0; color: #E6FAF9; font-size: 1.1rem; }
+.cta-lines { list-style: none; padding: 0; margin: 18px 0 0; display: flex; flex-wrap: wrap; gap: 8px 28px; }
+.cta-lines span { font-family: var(--font-display); font-size: .75rem; letter-spacing: .2em; text-transform: uppercase; color: #CFF4F3; margin-right: 8px; }
+.cta-lines a { color: var(--white); font-weight: 700; }
+.final-cta h2 { max-width: 24ch; }

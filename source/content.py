@@ -1,12 +1,12 @@
-# All copy below comes from Denis's "ProPodium Events - Website Copy Updates" PDF (Nov 26, 2026).
+# All copy below comes from Denis's "Pro Podium Events - Website Copy Updates" PDF (Nov 26, 2026).
 HERITAGE = "Delivering precision event mobility and B2B operational excellence since 2019."
-TAGLINE_FULL = "ProPodium Events — The Support Behind Every Great Event."
+TAGLINE_FULL = "Pro Podium Events — The Support Behind Every Great Event."
 
 SERVICES = [
   dict(id="executive-vip", name="Executive & VIP Transportation",
        headline="Discreet, Precision Mobility for Principals, Talent, and C-Suite Leaders",
        sub="Seamless point-to-point and dedicated charter logistics engineered for high-profile schedules.",
-       body="When timelines are non-negotiable and privacy is paramount, ProPodium Events delivers white-glove ground transportation tailored to executives, dignitaries, artists, and VIP guests. Operating with late-model luxury sedans, flagship SUVs, and executive Sprinters, our vetted chauffeurs are trained in defensive driving, diplomatic protocol, and strict NDA compliance. Every vehicle is staged ahead of schedule and monitored in real time by our central dispatch command.",
+       body="When timelines are non-negotiable and privacy is paramount, Pro Podium Events delivers white-glove ground transportation tailored to executives, dignitaries, artists, and VIP guests. Operating with late-model luxury sedans, flagship SUVs, and executive Sprinters, our vetted chauffeurs are trained in defensive driving, diplomatic protocol, and strict NDA compliance. Every vehicle is staged ahead of schedule and monitored in real time by our central dispatch command.",
        features=["Late-model black-on-black fleet", "Chauffeurs in formal business attire", "Real-time GPS & flight tracking", "NDA-compliant discretion"],
        media="Black luxury SUV staged outside a private jet terminal or five-star hotel at dusk."),
   dict(id="on-site-coordinators", name="On-Site Event Coordinators",
@@ -18,20 +18,20 @@ SERVICES = [
   dict(id="airport-greeters", name="Airport Greeters & FBO Meet-and-Greet",
        headline="First-Class Arrival & Departure Management at Commercial Terminals and Private FBOs",
        sub="Eliminating airport friction from tarmac to vehicle.",
-       body="Your guest’s event experience begins the moment they land. ProPodium Events deploys uniformed Airport Greeters across commercial baggage claims, international customs exits, and private FBO terminals. We track incoming tails and commercial flights to the minute, coordinate luggage handling, and escort principals directly to their waiting vehicles—ensuring zero wait times and effortless transitions.",
+       body="Your guest’s event experience begins the moment they land. Pro Podium Events deploys uniformed Airport Greeters across commercial baggage claims, international customs exits, and private FBO terminals. We track incoming tails and commercial flights to the minute, coordinate luggage handling, and escort principals directly to their waiting vehicles—ensuring zero wait times and effortless transitions.",
        features=["Custom digital or branded signage", "Commercial terminal & private FBO coverage", "Real-time flight & tail-number monitoring", "Luggage porter coordination"],
        media="Uniformed greeter holding a tablet or welcome sign inside a modern airport terminal or private FBO lounge."),
   dict(id="group-transportation", name="Group Transportation & Shuttle Logistics",
        headline="Scalable, Synchronized Movement for Delegations, Crews, and Corporate Groups",
        sub="High-capacity fleet solutions designed for efficiency, punctuality, and route optimization.",
-       body="Moving 50 or 5,000 attendees requires engineered routing and disciplined timing. ProPodium Events designs and executes custom shuttle loops, hotel-to-venue transfers, and off-site dinner movements using executive Sprinters, mini-coaches, and full-size motorcoaches. We analyze traffic patterns, road closures, and venue drop-off restrictions to keep your program running strictly on schedule.",
+       body="Moving 50 or 5,000 attendees requires engineered routing and disciplined timing. Pro Podium Events designs and executes custom shuttle loops, hotel-to-venue transfers, and off-site dinner movements using executive Sprinters, mini-coaches, and full-size motorcoaches. We analyze traffic patterns, road closures, and venue drop-off restrictions to keep your program running strictly on schedule.",
        features=["Custom route planning & traffic mitigation", "Sprinter vans, mini-coaches & motorcoaches", "Scheduled shuttle loops & manifests", "Dedicated group dispatchers"],
        media="Lined-up fleet of luxury black Sprinter vans and executive coaches ready for group departure."),
 ]
 SVC = {s["name"]: s["id"] for s in SERVICES}
 
 EVENTS_HEADLINE = "Proven Execution Across the World’s Most Demanding Stages"
-EVENTS_INTRO = "Since 2019, ProPodium Events has operated behind the scenes of global motorsports, championship tournaments, premier music festivals, and high-level international summits. Explore our active event deployments and our track record of past major productions."
+EVENTS_INTRO = "Since 2019, Pro Podium Events has operated behind the scenes of global motorsports, championship tournaments, premier music festivals, and high-level international summits. Explore our active event deployments."
 
 def E(title, short, overview, spot_label=None, spot=None, media=None, details=None, contacts=None, details_title="2027 Event Details", anchor=None):
     return dict(title=title, short=short, overview=overview, spot_label=spot_label, spot=spot, media=media,
@@ -40,11 +40,11 @@ def E(title, short, overview, spot_label=None, spot=None, media=None, details=No
 F1_NOTE = ("Notes", "Official F1 2027 calendar (24 races)")
 CATS = [
  dict(id="ev-motorsport", file="events/motorsport.html", menu="Motorsport", headline="Motorsport Event Support",
-  intro="Race weekends bring highway congestion, road closures, credentialed paddock access and surges of private jet arrivals. ProPodium Events supports teams, sponsors, broadcasters and VIP hospitality programs across Formula 1 and NASCAR, so every guest moves between airport, hotel and paddock on schedule.",
+  intro="Race weekends bring highway congestion, road closures, credentialed paddock access and surges of private jet arrivals. Pro Podium Events supports teams, sponsors, broadcasters and VIP hospitality programs across Formula 1 and NASCAR, so every guest moves between airport, hotel and paddock on schedule.",
   services=["Executive & VIP Transportation", "On-Site Event Coordinators", "Airport Greeters & FBO Meet-and-Greet", "Group Transportation & Shuttle Logistics"],
   events=[
    E("Formula 1 — United States Grand Prix (Austin, TX)", "F1 Austin",
-     "Hosted at Circuit of The Americas (COTA), Austin’s F1 weekend demands mastery over severe highway congestion, credentialed paddock access, and private FBO surges at Austin-Bergstrom (AUS). ProPodium Events manages VIP hospitality transfers, team logistics, and downtown hotel staging throughout race week.",
+     "Hosted at Circuit of The Americas (COTA), Austin’s F1 weekend demands mastery over severe highway congestion, credentialed paddock access, and private FBO surges at Austin-Bergstrom (AUS). Pro Podium Events manages VIP hospitality transfers, team logistics, and downtown hotel staging throughout race week.",
      "Race Champions Spotlight (Austin)", ["Most Wins (COTA): Lewis Hamilton (5 wins)", "Recent Circuit Winners: Max Verstappen, Charles Leclerc, Carlos Sainz, Valtteri Bottas"],
      "Aerial or trackside photo of Circuit of The Americas in Austin during race weekend.",
      [("Dates", "October 22–24, 2027"), ("Location", "Austin, TX — Circuit of The Americas (COTA)"), F1_NOTE], ["f1austin@propodiumevents.com"], anchor="f1-austin"),
@@ -54,7 +54,7 @@ CATS = [
      "Photo of the Miami Grand Prix circuit with palm trees and hospitality suites.",
      [("Dates", "April 30 – May 2, 2027"), ("Location", "Miami, FL"), F1_NOTE], ["f1miami@propodiumevents.com"], anchor="f1-miami"),
    E("Formula 1 — Las Vegas Grand Prix (Las Vegas, NV)", "F1 Las Vegas",
-     "Racing down the iconic Las Vegas Strip at night creates unprecedented road closures and security perimeters. ProPodium Events specializes in navigating Strip barricade protocols, private jet arrivals at Harry Reid (LAS) and Henderson, and 24-hour VIP nightlife and paddock transfers.",
+     "Racing down the iconic Las Vegas Strip at night creates unprecedented road closures and security perimeters. Pro Podium Events specializes in navigating Strip barricade protocols, private jet arrivals at Harry Reid (LAS) and Henderson, and 24-hour VIP nightlife and paddock transfers.",
      "Race Champions Spotlight (Las Vegas)", ["Recent Circuit Winners: Max Verstappen, George Russell"],
      "Nighttime photo of the Las Vegas Strip illuminated with F1 track barriers and luxury hospitality.",
      [("Dates", "November 18–20, 2027"), ("Location", "Las Vegas, NV"), F1_NOTE], ["f1lasvegas@propodiumevents.com"], anchor="f1-las-vegas"),
@@ -69,7 +69,7 @@ CATS = [
      "Photo of the Interlagos Senna S curve during a race weekend.",
      [("Dates", "November 5–7, 2027 (Sprint weekend)"), ("Location", "São Paulo, Brazil"), F1_NOTE], ["f1saopaulo@propodiumevents.com"], anchor="f1-sao-paulo"),
    E("NASCAR Cup Series & Major Race Weekends", "NASCAR",
-     "From Daytona and Charlotte to Circuit of The Americas (EchoPark Automotive Grand Prix) and Phoenix, ProPodium Events supports team owners, corporate sponsors, broadcasters, and VIP hospitality suites with high-volume shuttle loops and executive tarmac transfers.",
+     "From Daytona and Charlotte to Circuit of The Americas (EchoPark Automotive Grand Prix) and Phoenix, Pro Podium Events supports team owners, corporate sponsors, broadcasters, and VIP hospitality suites with high-volume shuttle loops and executive tarmac transfers.",
      "Championship & Marquee Race Winners Spotlight", ["Recent Cup Series Champions: Joey Logano, Ryan Blaney, Kyle Larson, Chase Elliott"],
      "Photo of NASCAR stock cars drafting on a superspeedway or road course.",
      [("Daytona 500", "February 21, 2027 (The Clash: February 13) — Daytona Beach, FL. Season opener of the NASCAR Cup Series"),
@@ -82,16 +82,16 @@ CATS = [
   cta="Planning a 2027 race weekend? Tell us your race, your guests and your schedule, and we will plan the ground transportation around it."),
 
  dict(id="ev-sports", file="events/sports.html", menu="Sports", headline="Major Sporting Events",
-  intro="Championship games, World Cup football, golf majors and the biggest days in racing draw sponsors, talent and VIP guests from around the world. ProPodium Events delivers the arrivals, venue transfers and on-site coordination that keep game day running on time.",
+  intro="Championship games, World Cup football, golf majors and the biggest days in racing draw sponsors, talent and VIP guests from around the world. Pro Podium Events delivers the arrivals, venue transfers and on-site coordination that keep game day running on time.",
   services=["Executive & VIP Transportation", "Airport Greeters & FBO Meet-and-Greet", "On-Site Event Coordinators", "Group Transportation & Shuttle Logistics"],
   events=[
    E("Super Bowl LXI (2027 — SoFi Stadium, Inglewood / Los Angeles, CA)", "Super Bowl LXI",
-     "Preparing for Super Bowl LXI in Greater Los Angeles requires multi-county fleet orchestration across LAX, Van Nuys (VNY), Burbank (BUR), Beverly Hills, Downtown LA, and Inglewood. ProPodium Events provides dedicated brand-activation fleets, red-carpet talent logistics, and 24/7 on-site dispatchers for NFL sponsors, media networks, and corporate hospitality groups.",
+     "Preparing for Super Bowl LXI in Greater Los Angeles requires multi-county fleet orchestration across LAX, Van Nuys (VNY), Burbank (BUR), Beverly Hills, Downtown LA, and Inglewood. Pro Podium Events provides dedicated brand-activation fleets, red-carpet talent logistics, and 24/7 on-site dispatchers for NFL sponsors, media networks, and corporate hospitality groups.",
      "Championship Spotlight", ["Super Bowl LX Champion (2026): Seattle Seahawks", "Super Bowl LIX Champion (2025): Philadelphia Eagles", "Super Bowl LVIII Champion (2024): Kansas City Chiefs"],
      "Wide exterior photo of SoFi Stadium in Inglewood at twilight.",
      [("Date", "February 14, 2027"), ("Location", "Inglewood (Los Angeles), CA — SoFi Stadium"), ("Notes", "~70,000 in the stadium; the biggest sporting event in the US")], ["superbowl@propodiumevents.com"], anchor="super-bowl"),
    E("FIFA Men's World Cup", "FIFA World Cup",
-     "The world's biggest single-sport event brings national team delegations, federation officials, sponsors, broadcasters, and VIP guests to several host cities at once. ProPodium Events supports delegations and sponsor hospitality programs with airport meet-and-greet, executive transfers, and match-day stadium staging across host cities.",
+     "The world's biggest single-sport event brings national team delegations, federation officials, sponsors, broadcasters, and VIP guests to several host cities at once. Pro Podium Events supports delegations and sponsor hospitality programs with airport meet-and-greet, executive transfers, and match-day stadium staging across host cities.",
      "Championship Spotlight", ["World Cup 2026 Champion: Spain (1–0 after extra time vs. Argentina, final at New York New Jersey Stadium, July 19, 2026)"],
      "Wide photo of a packed international football stadium at night with executive vehicles staged outside.",
      [("Last edition", "June 11 – July 19, 2026 — Canada, Mexico and the United States (16 stadiums, 48 teams, 104 matches)"),
@@ -99,7 +99,7 @@ CATS = [
       ("2030 dates", "Centenary matches June 8–9, opening matches June 13–14, final expected July 21, 2030 (proposed schedule, not yet confirmed by FIFA)")],
      ["fifa@propodiumevents.com"], details_title="Event Details (2026 and 2030 Editions)", anchor="fifa-world-cup"),
    E("FIFA Women's World Cup (Brazil 2027)", "FIFA Women's World Cup",
-     "Brazil hosts the 2027 FIFA Women's World Cup across eight host cities, with the opening match and the final at the Maracanã in Rio de Janeiro. ProPodium Events coordinates team delegation, sponsor, and VIP movements with bilingual on-site coordinators, airport meet-and-greet, and executive transfers between host cities.",
+     "Brazil hosts the 2027 FIFA Women's World Cup across eight host cities, with the opening match and the final at the Maracanã in Rio de Janeiro. Pro Podium Events coordinates team delegation, sponsor, and VIP movements with bilingual on-site coordinators, airport meet-and-greet, and executive transfers between host cities.",
      None, None, "Executive vehicles staged near a large stadium in Rio de Janeiro at sunset.",
      [("Dates", "June 24 – July 25, 2027"), ("Host cities", "Belo Horizonte, Brasília, Fortaleza, Porto Alegre, Recife, Rio de Janeiro, Salvador, São Paulo (Brazil)"),
       ("Opening match & final", "Rio de Janeiro — Estádio do Maracanã (Brazil play the opening match on June 24)"), ("Notes", "64 matches across eight host cities")],
@@ -121,19 +121,19 @@ CATS = [
   cta="Hosting guests at a 2027 championship? Contact us to plan arrivals, venue transfers and game-day staging."),
 
  dict(id="ev-festivals", file="events/festivals.html", menu="Festivals & Entertainment", headline="Festivals, Film & Culture",
-  intro="Festivals, film premieres and award nights mean street closures, red-carpet timing and artists who cannot wait. ProPodium Events moves talent, executives and VIP guests between airports, hotels, venues and after-parties with discretion and precision.",
+  intro="Festivals, film premieres and award nights mean street closures, red-carpet timing and artists who cannot wait. Pro Podium Events moves talent, executives and VIP guests between airports, hotels, venues and after-parties with discretion and precision.",
   services=["Executive & VIP Transportation", "On-Site Event Coordinators", "Airport Greeters & FBO Meet-and-Greet", "Group Transportation & Shuttle Logistics"],
   events=[
    E("South by Southwest (SXSW — Austin, TX)", "SXSW",
-     "Headquartered in Austin, ProPodium Events navigates downtown street closures, keynote speaker schedules, brand houses, and private showcase transfers across the Austin Convention Center and entertainment districts.",
+     "Headquartered in Austin, Pro Podium Events navigates downtown street closures, keynote speaker schedules, brand houses, and private showcase transfers across the Austin Convention Center and entertainment districts.",
      None, None, None, [("Dates", "March 13–21, 2027 (main conference March 15–21)"), ("Location", "Austin, TX")], ["sxsw@propodiumevents.com"], anchor="sxsw"),
    E("Austin City Limits Music Festival (ACL Fest — Zilker Park, Austin, TX)", "ACL Fest",
-     "Headquartered in Austin, ProPodium Events moves artists, VIP guests, and sponsor hospitality groups between Austin-Bergstrom (AUS), downtown hotels, and the Zilker Park artist and VIP entrances, working around festival road closures across both weekends.",
+     "Headquartered in Austin, Pro Podium Events moves artists, VIP guests, and sponsor hospitality groups between Austin-Bergstrom (AUS), downtown hotels, and the Zilker Park artist and VIP entrances, working around festival road closures across both weekends.",
      None, None, "Executive Sprinter staged near Zilker Park with the Austin skyline at sunset.",
      [("Dates", "Two weekends in October 2027 (TBC)"), ("Location", "Austin, TX — Zilker Park"), ("Notes", "2027 dates not yet announced on the official festival site; the 2026 edition was October 2–4 and October 9–11")],
      ["acl@propodiumevents.com"], anchor="acl-fest"),
    E("The Oscars (Academy Awards — Los Angeles, CA)", "The Oscars",
-     "ProPodium Events manages white-glove executive transportation, nominee arrivals, and studio executive departures around Hollywood's tightest red-carpet security zones and private after-parties.",
+     "Pro Podium Events manages white-glove executive transportation, nominee arrivals, and studio executive departures around Hollywood's tightest red-carpet security zones and private after-parties.",
      None, None, "Luxury sedan staged near a red carpet arrival portal at night.",
      [("Date", "March 14, 2027 — 99th Academy Awards"), ("Location", "Los Angeles, CA — Dolby Theatre")], ["oscars@propodiumevents.com"], anchor="oscars"),
    E("Coachella Valley Music and Arts Festival (Indio / Palm Springs, CA)", "Coachella",
@@ -158,7 +158,7 @@ CATS = [
   cta="Bringing artists, talent or VIP guests to a 2027 festival or premiere? Contact us to plan every transfer."),
 
  dict(id="ev-business", file="events/business.html", menu="Business & Conferences", headline="Corporate Conferences & Trade Shows",
-  intro="Global conferences and trade shows move thousands of executives, speakers and delegates on tight schedules. ProPodium Events runs C-suite transfers, delegate shuttles and airport meet-and-greet so your people arrive ready for the keynote.",
+  intro="Global conferences and trade shows move thousands of executives, speakers and delegates on tight schedules. Pro Podium Events runs C-suite transfers, delegate shuttles and airport meet-and-greet so your people arrive ready for the keynote.",
   services=["Group Transportation & Shuttle Logistics", "Executive & VIP Transportation", "Airport Greeters & FBO Meet-and-Greet", "On-Site Event Coordinators"],
   events=[
    E("CES (Consumer Electronics Show — Las Vegas, NV)", "CES",
@@ -186,7 +186,7 @@ CATS = [
   cta="Sending executives or a delegation to a 2027 conference? Contact us to plan shuttles, transfers and airport arrivals."),
 
  dict(id="ev-government", file="events/government.html", menu="Government & Summits", headline="Diplomatic & Global Summits",
-  intro="Intergovernmental summits demand protocol, security and timing measured to the minute. ProPodium Events supports delegations, support staff and global media with protocol-compliant vehicles, diplomatic greeters and 24/7 dispatch command.",
+  intro="Intergovernmental summits demand protocol, security and timing measured to the minute. Pro Podium Events supports delegations, support staff and global media with protocol-compliant vehicles, diplomatic greeters and 24/7 dispatch command.",
   services=["Executive & VIP Transportation", "Airport Greeters & FBO Meet-and-Greet", "On-Site Event Coordinators", "Group Transportation & Shuttle Logistics"],
   events=[
    E("G7 & G20 Leaders’ Summits", "G7 & G20",
@@ -222,3 +222,66 @@ PAST_ROWS = [
   "Protocol motorcades, Diplomatic Greeters, High-security Staging", "Escorted motorcade support & 24/7 central dispatch command",
   ["g7", "g20", "un"]),
 ]
+
+
+# ---------- Nov 26 final home copy ("Pro Podium Website Changes" PDF) ----------
+SITE_EMAIL = "info@propodiumevents.com"
+SITE_PHONE = "(737) 202-7261"
+SITE_PHONE_TEL = "+17372027261"
+
+HERO_TITLE = "The ground operations team behind your event."
+HERO_TEXT = ("VIP and sponsor arrivals, airport greeters, on-site coordinators and executive transportation, "
+             "handled from first arrival to last departure. Trusted at F1, the Super Bowl and the FIFA World Cup since 2019.")
+HERO_LINE = ["Since 2019", "United States", "Mexico", "Canada", "Brazil"]
+
+PACKAGES_TITLE = "Three ways we support your event"
+PACKAGES = [
+    ("VIP & Sponsor Arrival", "Airport and FBO greeters, arrival coordination and a single point of contact for your VIP and sponsor guests."),
+    ("Talent & Executive Movement", "Executive vehicles and coordination for artists, speakers and executives. Discreet, punctual and built around your schedule."),
+    ("Full Event Ground Operations", "Everything above, plus on-site coordinators, group shuttle logistics and a dedicated lead on the ground for the full run of your event."),
+]
+PACKAGES_NOTE = "Every package includes a pre-event logistics plan and a post-event report."
+
+HOW_TITLE = "Simple from the first call to the last guest"
+HOW_STEPS = [
+    ("Share your event.", "Send us the dates, venues and guest list."),
+    ("We build your ground plan.", "Arrivals, vehicles, greeters and coordinators, mapped out in detail, at no cost."),
+    ("We run it and report back.", "Your team focuses on the show. We handle the movement, then deliver a full report."),
+]
+
+WHO_TITLE = "Built for event organizers"
+WHO_TEXT = ("Directors of operations, hospitality leads and producers who need every guest welcomed, moved and looked after, "
+            "without managing a dozen vendors.")
+WHO_ALSO = [
+    ("Sponsors", "Executive and VIP transportation, airport greeters and guest welcome for your hosted guests."),
+    ("Event-transport companies", "We don't compete with you. We work alongside you as an extension of your team."),
+]
+
+EVENTS_HOME_TITLE = "Events we support"
+EVENTS_HOME_TEXT = ("Since 2019, Pro Podium Events has supported guest transportation and on-site operations "
+                    "at the world's most demanding events.")
+# (label, category page id, events)
+EVENTS_HOME = [
+    ("Motorsport", "ev-motorsport", ["F1 Austin", "F1 Miami", "F1 Las Vegas", "F1 Mexico City", "F1 São Paulo", "NASCAR"]),
+    ("Major Sporting Events", "ev-sports", ["Super Bowl", "FIFA World Cup", "FIFA Women's World Cup", "NBA All-Star", "PGA Tour", "Kentucky Derby"]),
+    ("Festivals, Film & Culture", "ev-festivals", ["SXSW", "ACL Fest", "The Oscars", "Coachella", "Cannes Film Festival", "Lollapalooza USA", "Lollapalooza Brazil", "Monaco Yacht Show"]),
+    ("Corporate Conferences & Trade Shows", "ev-business", ["CES", "World Economic Forum", "IMEX America", "TomorrowX", "Money 20/20 USA"]),
+    ("Diplomatic & Global Summits", "ev-government", ["G7 & G20", "UN General Assembly"]),
+]
+EVENTS_DISCLAIMER = ("Event names are trademarks of their respective owners. "
+                     "Pro Podium Events is an independent ground operations provider.")
+
+REVIEWS_TITLE = "What our clients say"
+REVIEWS_TEXT = "Worked with Pro Podium Events? We'd love to hear about your experience."
+# Only real, approved reviews go here. While the list is empty the list is hidden.
+# Each review: {"stars": 5, "text": "...", "name": "...", "title": "...", "event": "..."}
+REVIEWS = []
+REVIEW_CONSENT = "I agree that Pro Podium Events may display my review on this website."
+REVIEW_THANKS = "Thank you! Your review will appear on our site once approved."
+
+NETWORK_TITLE = "Our network"
+NETWORK_TEXT = "We work with trusted partners across the U.S. to deliver premium vehicles and guest service."
+
+FINAL_TITLE = "Let's plan your event's ground operations."
+FINAL_TEXT = "Tell us about your event and we'll send you a free ground plan."
+CTA_BUTTON = "Request a free ground plan"
