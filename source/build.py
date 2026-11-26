@@ -168,7 +168,7 @@ def category_cards(href):
     out += f'''<article class="cat-card cat-past">
   <span class="cat-menu">Track record</span>
   <h3><a href="{href("past")}">{PAST_TITLE}</a></h3>
-  <p>{PAST_SUB}: sports, music and culture, business conferences and diplomatic summits.</p>
+  <p>Historical productions across sports, music and culture, business conferences and diplomatic summits.</p>
   <a class="more" href="{href("past")}">See past events &rarr;</a>
 </article>'''
     return out
@@ -544,9 +544,11 @@ def jsonld():
             "description": PAGES["home"][2]}
     return '<script type="application/ld+json">' + json.dumps(data) + '</script>'
 
-def site_href(depth):
+def site_href(depth, cur=None):
     pre = "../" * depth
     def href(pid, anchor=None):
+        if pid == cur and anchor:
+            return "#" + anchor
         f = PAGES[pid][0]
         url = (pre or "./") if f == "index.html" else pre + f
         return url + ("#" + anchor if anchor else "")
@@ -569,7 +571,7 @@ def build_site():
     for pid, (f, title, desc) in PAGES.items():
         depth = f.count("/")
         pre = "../" * depth
-        href = site_href(depth)
+        href = site_href(depth, pid)
         url = DOMAIN + "/" + ("" if f == "index.html" else f)
         html = f'''<!doctype html>
 <html lang="en">
