@@ -30,33 +30,88 @@ STAR = '<span class="star" aria-hidden="true"></span>'
 def ph(v):
     return f'<span class="placeholder">{v}</span>'
 
-# ---------- page bodies (href() maps page ids to real links per output) ----------
+sys.path.insert(0, BASE)
+from content import *
+
+def esc(s):
+    return s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+
+def mail(addr):
+    return f'<a href="mailto:{addr}">{addr}</a>'
+
+def media(desc):
+    return f'''<figure class="media-ph">
+  <div class="media-ph-box" aria-hidden="true"><span class="star"></span></div>
+  <figcaption><strong>Photo placeholder.</strong> {esc(desc)}</figcaption>
+</figure>'''
+
+# ---------- page registry ----------
+# pid -> (file, title, description)
+PAGES = {
+    "home": ("index.html", "ProPodium Events & Hospitality | The Support Behind Every Great Event",
+             "ProPodium Events delivers precision event mobility and B2B operational excellence since 2019: executive and VIP transportation, on-site event coordinators, airport greeters and group transportation."),
+    "about": ("about.html", "About | ProPodium Events & Hospitality",
+              "Since 2019, ProPodium Events & Hospitality has supported event organizers, sponsors and event-transport companies at Formula 1, the Super Bowl, the FIFA World Cup and more."),
+    "services": ("services.html", "Services | ProPodium Events & Hospitality",
+                 "Executive & VIP transportation, on-site event coordinators, airport greeters & FBO meet-and-greet, and group transportation & shuttle logistics."),
+    "events": ("events.html", "Events | ProPodium Events & Hospitality",
+               EVENTS_INTRO),
+}
+for c in CATS:
+    PAGES[c["id"]] = (c["file"], f'{c["headline"]} | ProPodium Events & Hospitality', c["intro"])
+PAGES["past"] = ("events/past-events.html", "Past Events & Proven Track Record | ProPodium Events & Hospitality",
+                 "Historical productions supported by ProPodium Events across sports, music and culture, business conferences and diplomatic summits.")
+PAGES["partners"] = ("partners.html", "Our Partners | ProPodium Events & Hospitality",
+                     "ProPodium Events & Hospitality works alongside experienced companies that share its commitment to reliability and guest experience, including Leo Limos in Austin, TX.")
+PAGES["contact"] = ("contact.html", "Contact | ProPodium Events & Hospitality",
+                    "Contact ProPodium Events & Hospitality for executive transportation, on-site event coordination, airport greeters and group transportation.")
+CAT_BY_ID = {c["id"]: c for c in CATS}
+EVENT_PIDS = ["events"] + [c["id"] for c in CATS] + ["past"]
+
+# ---------- shared parts ----------
 def header(cur, href):
-    items = [("home", "Home"), ("about", "About"), ("partners", "Partners")]
-    lis = "".join(f'<li><a href="{href(i)}"{" aria-current=\"page\"" if i == cur else ""}>{t}</a></li>' for i, t in items)
+    def a(pid, text, cls=""):
+        cur_attr = ' aria-current="page"' if pid == cur else ""
+        return f'<a href="{href(pid)}"{cur_attr}{cls}>{text}</a>'
+    sub = "".join(f'<li>{a(c["id"], c["menu"])}</li>' for c in CATS)
+    sub = f'<li>{a("events", "All events")}</li>' + sub + f'<li>{a("past", "Past events")}</li>'
+    ev_cur = ' class="is-current"' if cur in EVENT_PIDS else ""
     return f'''<header class="site-header">
   <div class="wrap nav">
     <a class="brand" href="{href("home")}"><span class="sr-only">{NAME_HTML} home</span>{logo_inline}</a>
     <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="nav-links-{cur}">Menu</button>
-    <ul class="nav-links" id="nav-links-{cur}">{lis}<li><a class="btn btn-gold" href="{href("contact")}"{" aria-current=\"page\"" if cur == "contact" else ""}>Request a quote</a></li></ul>
+    <ul class="nav-links" id="nav-links-{cur}">
+      <li>{a("home", "Home")}</li>
+      <li>{a("about", "About")}</li>
+      <li>{a("services", "Services")}</li>
+      <li class="has-sub"><a href="{href("events")}"{ev_cur}{' aria-current="page"' if cur == "events" else ""}>Events <span class="caret" aria-hidden="true"></span></a><ul class="sub" aria-label="Events">{sub}</ul></li>
+      <li>{a("partners", "Partners")}</li>
+      <li><a class="btn btn-gold" href="{href("contact")}"{' aria-current="page"' if cur == "contact" else ""}>Request a quote</a></li>
+    </ul>
   </div>
 </header>'''
 
 def footer(href):
+    cats = "".join(f'<li><a href="{href(c["id"])}">{c["menu"]}</a></li>' for c in CATS)
     return f'''<footer class="site-footer">
   <div class="wrap footer-grid">
     <div>
       <a class="brand" href="{href("home")}"><span class="sr-only">{NAME_HTML} home</span>{logo_inline}</a>
-      <p>{TAGLINE} Executive transportation, on-site coordination and guest welcome across the United States, Mexico, Canada, and Brazil.</p>
+      <p><strong class="footer-tag">The Support Behind Every Great Event.</strong> {HERITAGE}</p>
     </div>
     <div>
       <h4>Explore</h4>
       <ul>
         <li><a href="{href("home")}">Home</a></li>
         <li><a href="{href("about")}">About</a></li>
+        <li><a href="{href("services")}">Services</a></li>
         <li><a href="{href("partners")}">Partners</a></li>
         <li><a href="{href("contact")}">Contact</a></li>
       </ul>
+    </div>
+    <div>
+      <h4>Events</h4>
+      <ul>{cats}<li><a href="{href("past")}">Past events</a></li></ul>
     </div>
     <div>
       <h4>Contact</h4>
@@ -72,28 +127,51 @@ def footer(href):
   </div>
 </footer>'''
 
-SERVICES = ["Executive and VIP transportation", "On-site event coordinators",
-            "Airport greeters and guest welcome", "Group transportation coordination and event setup"]
-EVENTS = [("Formula 1", ["Austin", "Miami", "Las Vegas"]), ("Super Bowl", []), ("NBA All-Star Game", []),
-          ("PGA", []), ("Kentucky Derby", []), ("SXSW", []), ("FIFA World Cup", [])]
+def cta(href):
+    return f'''<section class="cta">
+  <div class="wrap cta-inner">
+    <h2>ProPodium. <span class="muted">Professional support, podium-level service.</span></h2>
+    <a class="btn btn-ink" href="{href("contact")}">Request a quote</a>
+  </div>
+</section>'''
+
+def page_hero(eyebrow, title, text, italic=True):
+    cls = "" if italic else ' class="plain"'
+    return f'''<section class="page-hero"><div class="wrap">
+  <span class="eyebrow">{STAR}{eyebrow}</span>
+  <h1>{title}</h1>
+  <p{cls}>{text}</p>
+</div></section>'''
+
 COUNTRIES = [("United States", "USA"), ("Mexico", "MEX"), ("Canada", "CAN"), ("Brazil", "BRA")]
 EVENT_TYPES = ["Corporate events", "Conferences", "Concerts", "Motorsport", "Car and motorcycle shows", "Major sporting events"]
-
-def services_html():
-    return "".join(f'<article class="service">{STAR}<h3>{s}</h3></article>' for s in SERVICES)
-
 AUDIENCES = [("Event organizers", "Every guest is welcomed, moved, and looked after without a detail missed."),
              ("Sponsors", "Executive and VIP transportation, airport greeters, and guest welcome for your guests."),
              ("Event-transport companies", "We don&rsquo;t compete with you. We work alongside you as an extension of your team.")]
-PILLARS = [("Experience", "Supporting some of the world&rsquo;s most demanding events since 2009."),
+PILLARS = [("Experience", "Supporting some of the world&rsquo;s most demanding events since 2019."),
            ("Reliability", "We know what it takes to deliver when the stakes are high."),
            ("Hospitality-first", "Every guest welcomed, moved, and looked after.")]
 
-def audiences_html():
-    return "".join(f'<article class="service">{STAR}<h3>{t}</h3><p>{d}</p></article>' for t, d in AUDIENCES)
+def services_cards(href):
+    return "".join(f'''<a class="service service-link" href="{href("services", s["id"])}">{STAR}<h3>{esc(s["name"])}</h3><p>{esc(s["sub"])}</p><span class="more">Learn more &rarr;</span></a>''' for s in SERVICES)
 
-def pillars_html():
-    return "".join(f'<div class="pillar"><span class="num">0{i+1}</span><h3>{t}</h3><p>{d}</p></div>' for i, (t, d) in enumerate(PILLARS))
+def category_cards(href):
+    out = ""
+    for c in CATS:
+        evs = "".join(f'<li><a href="{href(c["id"], e["anchor"])}">{esc(e["short"])}</a></li>' for e in c["events"])
+        out += f'''<article class="cat-card">
+  <span class="cat-menu">{esc(c["menu"])}</span>
+  <h3><a href="{href(c["id"])}">{esc(c["headline"])}</a></h3>
+  <ul class="cat-events">{evs}</ul>
+  <a class="more" href="{href(c["id"])}">See 2027 events &rarr;</a>
+</article>'''
+    out += f'''<article class="cat-card cat-past">
+  <span class="cat-menu">Track record</span>
+  <h3><a href="{href("past")}">{PAST_TITLE}</a></h3>
+  <p>{PAST_SUB}: sports, music and culture, business conferences and diplomatic summits.</p>
+  <a class="more" href="{href("past")}">See past events &rarr;</a>
+</article>'''
+    return out
 
 def partner_card():
     return f'''<article class="partner">
@@ -106,21 +184,21 @@ def partner_card():
   <a class="btn btn-ink" href="https://www.leolimos.com" target="_blank" rel="noopener">Visit Leo Limos &rarr;</a>
 </article>'''
 
+# ---------- pages ----------
 def home(href):
-    events = "".join(
-        f'<li><span class="name">{n}</span>' + (f'<span class="where">{"".join(f"<span>{c}</span>" for c in cities)}</span>' if cities else '') + '</li>'
-        for n, cities in EVENTS)
     countries = "".join(f'<li>{c}<small>{code}</small></li>' for c, code in COUNTRIES)
     types = "".join(f"<li>{t}</li>" for t in EVENT_TYPES)
+    audiences = "".join(f'<article class="service">{STAR}<h3>{t}</h3><p>{d}</p></article>' for t, d in AUDIENCES)
+    pillars = "".join(f'<div class="pillar"><span class="num">0{i+1}</span><h3>{t}</h3><p>{d}</p></div>' for i, (t, d) in enumerate(PILLARS))
     return f'''<section class="hero">
   <div class="wrap hero-inner">
     <div class="hero-copy">
       <span class="eyebrow">{NAME_HTML}</span>
       <h1>The support behind every <span class="accent">great event.</span></h1>
-      <p class="hero-lead">The operational partner behind some of the world&rsquo;s most demanding events. Since 2009, we have supported event organizers, sponsors, and event-transport companies, making sure every guest is welcomed, moved, and looked after without a detail missed.</p>
+      <p class="hero-lead">The operational partner behind some of the world&rsquo;s most demanding events. Since 2019, we have supported event organizers, sponsors, and event-transport companies, making sure every guest is welcomed, moved, and looked after without a detail missed.</p>
       <div class="hero-actions">
         <a class="btn btn-gold" href="{href("contact")}">Request a quote</a>
-        <a class="btn btn-ghost" href="{href("about")}">About ProPodium</a>
+        <a class="btn btn-ghost" href="{href("events")}">See our events</a>
       </div>
     </div>
     <div class="podium" aria-hidden="true">
@@ -130,17 +208,28 @@ def home(href):
     </div>
   </div>
   <div class="facts-strip"><div class="wrap facts">
-    <span>{STAR}Since 2009</span><span>{STAR}On-site coordination</span><span>{STAR}VIP transportation</span><span>{STAR}United States</span><span>{STAR}Mexico</span><span>{STAR}Canada</span><span>{STAR}Brazil</span>
+    <span>{STAR}Since 2019</span><span>{STAR}Executive &amp; VIP transportation</span><span>{STAR}On-site coordination</span><span>{STAR}Airport &amp; FBO meet-and-greet</span><span>{STAR}Group shuttle logistics</span>
   </div></div>
 </section>
 
-<section class="section tint" id="services">
+<section class="section tint" id="what-we-do">
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow">{STAR}What we do</span>
       <h2>Every guest welcomed, moved, and looked after.</h2>
     </div>
-    <div class="services">{services_html()}</div>
+    <div class="services">{services_cards(href)}</div>
+  </div>
+</section>
+
+<section class="section dark">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">{STAR}Events</span>
+      <h2>{EVENTS_HEADLINE}</h2>
+      <p>{EVENTS_INTRO}</p>
+    </div>
+    <div class="cat-grid">{category_cards(href)}</div>
   </div>
 </section>
 
@@ -150,22 +239,11 @@ def home(href):
       <span class="eyebrow">{STAR}Who we support</span>
       <h2>Event organizers, sponsors, and event-transport companies.</h2>
     </div>
-    <div class="services three">{audiences_html()}</div>
+    <div class="services three">{audiences}</div>
   </div>
 </section>
 
-<section class="section dark">
-  <div class="wrap">
-    <div class="section-head">
-      <span class="eyebrow">{STAR}Track record</span>
-      <h2>We know what it takes to deliver when the stakes are high.</h2>
-    </div>
-    <ul class="events">{events}</ul>
-    <p class="events-note">From Formula 1 in Austin, Miami, and Las Vegas to the Super Bowl, NBA All-Star Game, PGA, Kentucky Derby, SXSW, and the FIFA World Cup, we know what it takes to deliver when the stakes are high.</p>
-  </div>
-</section>
-
-<section class="section">
+<section class="section tint">
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow">{STAR}Where we work</span>
@@ -178,15 +256,15 @@ def home(href):
   </div>
 </section>
 
-<section class="section tint">
+<section class="section">
   <div class="wrap approach">
     <div class="section-head" style="margin:0"><span class="eyebrow">{STAR}Our approach</span><h2>An extension of your team.</h2></div>
     <blockquote>We don&rsquo;t compete with the companies we support. We work alongside them as an extension of their team, bringing <span class="hl">experience, reliability, and a hospitality-first mindset</span> to every event.</blockquote>
   </div>
-  <div class="wrap"><div class="pillars">{pillars_html()}</div></div>
+  <div class="wrap"><div class="pillars">{pillars}</div></div>
 </section>
 
-<section class="section">
+<section class="section tint">
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow">{STAR}Our partners</span>
@@ -199,24 +277,12 @@ def home(href):
 
 {cta(href)}'''
 
-def cta(href):
-    return f'''<section class="cta">
-  <div class="wrap cta-inner">
-    <h2>ProPodium. <span class="muted">Professional support, podium-level service.</span></h2>
-    <a class="btn btn-ink" href="{href("contact")}">Request a quote</a>
-  </div>
-</section>'''
-
 def about(href):
-    svc = "".join(f"<li>{STAR}<span>{s}</span></li>" for s in SERVICES)
-    return f'''<section class="page-hero"><div class="wrap">
-  <span class="eyebrow">{STAR}About us</span>
-  <h1>About {NAME_HTML}</h1>
-  <p>{TAGLINE}</p>
-</div></section>
+    svc = "".join(f'<li>{STAR}<span><a href="{href("services", s["id"])}">{esc(s["name"])}</a></span></li>' for s in SERVICES)
+    return f'''{page_hero("About us", f"About {NAME_HTML}", HERITAGE)}
 <section class="section"><div class="wrap about-grid">
   <div class="prose">
-    <p class="lead">{NAME_HTML} is the operational partner behind some of the world&rsquo;s most demanding events. Since 2009, we have supported event organizers, sponsors, and event-transport companies, making sure every guest is welcomed, moved, and looked after without a detail missed.</p>
+    <p class="lead">{NAME_HTML} is the operational partner behind some of the world&rsquo;s most demanding events. Since 2019, we have supported event organizers, sponsors, and event-transport companies, making sure every guest is welcomed, moved, and looked after without a detail missed.</p>
     <p>From Formula 1 in Austin, Miami, and Las Vegas to the Super Bowl, NBA All-Star Game, PGA, Kentucky Derby, SXSW, and the FIFA World Cup, we know what it takes to deliver when the stakes are high.</p>
     <h2>What we do</h2>
     <ul>{svc}</ul>
@@ -224,11 +290,11 @@ def about(href):
     <p>Across the United States, Mexico, Canada, and Brazil, for corporate events, conferences, concerts, motorsport, car and motorcycle shows, and major sporting events.</p>
     <h2>Our approach</h2>
     <p>We don&rsquo;t compete with the companies we support. We work alongside them as an extension of their team, bringing experience, reliability, and a hospitality-first mindset to every event.</p>
-    <p class="signoff">ProPodium. Professional support, podium-level service.</p>
+    <p class="signoff">ProPodium Events. The Support Behind Every Great Event.</p>
   </div>
   <aside class="aside" aria-label="At a glance">
     <dl>
-      <div><dt>Supporting events since</dt><dd>2009</dd></div>
+      <div><dt>Supporting events since</dt><dd>2019</dd></div>
       <div><dt>Countries</dt><dd>United States, Mexico, Canada, Brazil</dd></div>
       <div><dt>We support</dt><dd>Event organizers, sponsors, and event-transport companies</dd></div>
     </dl>
@@ -237,12 +303,113 @@ def about(href):
 </div></section>
 {cta(href)}'''
 
-def partners(href):
-    return f'''<section class="page-hero"><div class="wrap">
-  <span class="eyebrow">{STAR}Partners</span>
-  <h1>Our Partners</h1>
-  <p>The support behind every great event is built on trusted relationships.</p>
+def services(href):
+    jump = "".join(f'<li><a href="{href("services", s["id"])}">{esc(s["name"])}</a></li>' for s in SERVICES)
+    blocks = ""
+    for i, s in enumerate(SERVICES):
+        feats = "".join(f"<li>{STAR}<span>{esc(f)}</span></li>" for f in s["features"])
+        blocks += f'''<section class="section svc-block{' tint' if i % 2 == 0 else ''}" id="{s["id"]}">
+  <div class="wrap svc-grid{' flip' if i % 2 else ''}">
+    <div class="svc-copy">
+      <span class="eyebrow">{STAR}{esc(s["name"])}</span>
+      <h2>{esc(s["headline"])}</h2>
+      <p class="svc-sub">{esc(s["sub"])}</p>
+      <p>{esc(s["body"])}</p>
+      <h3 class="feat-title">Key features</h3>
+      <ul class="features">{feats}</ul>
+    </div>
+    {media(s["media"])}
+  </div>
+</section>'''
+    return f'''{page_hero("Services", "Our Services", HERITAGE)}
+<nav class="jump" aria-label="Services on this page"><div class="wrap"><ul>{jump}</ul></div></nav>
+{blocks}
+{cta(href)}'''
+
+def events(href):
+    return f'''{page_hero("Events", EVENTS_HEADLINE, EVENTS_INTRO, italic=False)}
+<section class="section tint"><div class="wrap">
+  <div class="section-head"><span class="eyebrow">{STAR}2027 event deployments</span><h2>Explore by category</h2></div>
+  <div class="cat-grid light">{category_cards(href)}</div>
 </div></section>
+{cta(href)}'''
+
+def event_block(e):
+    spot = ""
+    if e["spot_label"]:
+        body = (f'<ul>{"".join(f"<li>{esc(x)}</li>" for x in e["spot"])}</ul>' if isinstance(e["spot"], list)
+                else f'<p>{esc(e["spot"])}</p>')
+        spot = f'<div class="spotlight"><h3>{STAR}{esc(e["spot_label"])}</h3>{body}</div>'
+    rows = "".join(f'<div><dt>{esc(k)}</dt><dd>{esc(v)}</dd></div>' for k, v in e["details"])
+    label = "Event contacts" if len(e["contacts"]) > 1 else "Event contact"
+    contacts = " ".join(mail(c) for c in e["contacts"])
+    rows += f'<div><dt>{label}</dt><dd>{contacts}</dd></div>'
+    med = media(e["media"]) if e["media"] else ""
+    return f'''<article class="event-block" id="{e["anchor"]}">
+  <h2>{esc(e["title"])}</h2>
+  <div class="event-grid">
+    <div class="event-copy">
+      <p><strong>Overview.</strong> {esc(e["overview"])}</p>
+      {spot}
+      {med}
+    </div>
+    <aside class="details">
+      <h3>{esc(e["details_title"])}</h3>
+      <dl>{rows}</dl>
+    </aside>
+  </div>
+</article>'''
+
+def category(cid):
+    c = CAT_BY_ID[cid]
+    def body(href):
+        svcs = "".join(f'<li><a href="{href("services", SVC[n])}">{STAR}{esc(n)}</a></li>' for n in c["services"])
+        jump = "".join(f'<li><a href="{href(cid, e["anchor"])}">{esc(e["short"])}</a></li>' for e in c["events"])
+        others = "".join(f'<li><a href="{href(o["id"])}">{esc(o["menu"])}</a></li>' for o in CATS if o["id"] != cid)
+        evs = "".join(event_block(e) for e in c["events"])
+        return f'''{page_hero("Events &middot; " + esc(c["menu"]), esc(c["headline"]), esc(c["intro"]), italic=False)}
+<nav class="jump" aria-label="Events on this page"><div class="wrap"><ul>{jump}</ul></div></nav>
+<section class="section tint svc-strip"><div class="wrap">
+  <h2 class="strip-title">Our Services on This Page</h2>
+  <ul class="svc-chips">{svcs}</ul>
+</div></section>
+<section class="section events-list"><div class="wrap">{evs}</div></section>
+<section class="cta cat-cta">
+  <div class="wrap cta-inner">
+    <div><h2>{esc(c["cta"])}</h2><p class="cta-contact">Contact: {mail(CTA_EMAIL)}</p></div>
+    <a class="btn btn-ink" href="{href("contact")}">Request a quote</a>
+  </div>
+</section>
+<nav class="section other-cats" aria-label="Other event categories"><div class="wrap">
+  <span class="eyebrow">{STAR}More events</span>
+  <ul class="chips">{others}<li><a href="{href("past")}">Past events</a></li></ul>
+</div></nav>'''
+    return body
+
+def past(href):
+    head = "".join(f'<th scope="col">{esc(h)}</th>' for h in PAST_COLS)
+    rows = ""
+    for cat, flag, scope, high, contacts in PAST_ROWS:
+        cs = "".join(f'<li>{mail(p + "@propodiumevents.com")}</li>' for p in contacts)
+        rows += f'''<tr>
+  <th scope="row" data-label="{esc(PAST_COLS[0])}">{esc(cat)}</th>
+  <td data-label="{esc(PAST_COLS[1])}">{esc(flag)}</td>
+  <td data-label="{esc(PAST_COLS[2])}">{esc(scope)}</td>
+  <td data-label="{esc(PAST_COLS[3])}">{esc(high)}</td>
+  <td data-label="Event contacts"><ul class="contact-list">{cs}</ul></td>
+</tr>'''
+    return f'''{page_hero("Events &middot; Track record", PAST_TITLE, EVENTS_INTRO, italic=False)}
+<section class="section"><div class="wrap">
+  <div class="section-head"><span class="eyebrow">{STAR}Historical productions</span><h2>{PAST_SUB}</h2></div>
+  <div class="matrix-wrap"><table class="matrix">
+    <thead><tr>{head}</tr></thead>
+    <tbody>{rows}</tbody>
+  </table></div>
+</div></section>
+{cta(href)}'''
+
+def partners(href):
+    return f'''{page_hero("Partners", "Our Partners", "The support behind every great event is built on trusted relationships.")}
 <section class="section tint"><div class="wrap">
   <div class="section-head"><p style="color:var(--ink);font-size:1.15rem">At {NAME_HTML}, we work alongside experienced companies that share our commitment to reliability and guest experience. Our partners help us deliver seamless events across the United States and beyond.</p></div>
   {partner_card()}
@@ -251,14 +418,10 @@ def partners(href):
 {cta(href)}'''
 
 def contact(href, preview):
-    checks = "".join(f'<label><input type="checkbox" name="services" value="{s}" id="svc-{i}"> {s}</label>' for i, s in enumerate(SERVICES))
+    checks = "".join(f'<label><input type="checkbox" name="services" value="{esc(s["name"])}" id="svc-{i}"> {esc(s["name"])}</label>' for i, s in enumerate(SERVICES))
     note = ("This is a preview: the form does not send messages yet." if preview
             else "Sending opens your email app with the details filled in.")
-    return f'''<section class="page-hero"><div class="wrap">
-  <span class="eyebrow">{STAR}Contact</span>
-  <h1>Request a quote for your event</h1>
-  <p>{TAGLINE}</p>
-</div></section>
+    return f'''{page_hero("Contact", "Request a quote for your event", "The Support Behind Every Great Event.")}
 <section class="section"><div class="wrap contact-grid">
   <div class="contact-info">
     <h2>Planning an event?</h2>
@@ -293,17 +456,12 @@ def contact(href, preview):
   </form>
 </div></section>'''
 
-PAGES = {
-    "home": ("ProPodium Events & Hospitality | The support behind every great event",
-             "ProPodium Events & Hospitality is the operational partner behind demanding events since 2009: executive and VIP transportation, on-site coordinators, airport greeters and group transportation across the US, Mexico, Canada and Brazil."),
-    "about": ("About | ProPodium Events & Hospitality",
-              "Since 2009, ProPodium Events & Hospitality has supported event organizers, sponsors and event-transport companies at Formula 1, the Super Bowl, the FIFA World Cup and more."),
-    "partners": ("Our Partners | ProPodium Events & Hospitality",
-                 "ProPodium Events & Hospitality works alongside experienced companies that share its commitment to reliability and guest experience, including Leo Limos in Austin, TX."),
-    "contact": ("Contact | ProPodium Events & Hospitality",
-                "Contact ProPodium Events & Hospitality for executive transportation, on-site event coordination and guest welcome in the US, Mexico, Canada and Brazil."),
-}
-FILES = {"home": "index.html", "about": "about.html", "partners": "partners.html", "contact": "contact.html"}
+BODIES = {"home": home, "about": about, "services": services, "events": events, "past": past, "partners": partners}
+for _c in CATS:
+    BODIES[_c["id"]] = category(_c["id"])
+
+def body_for(pid, href, preview):
+    return contact(href, preview) if pid == "contact" else BODIES[pid](href)
 
 JS_COMMON = r'''
 (function () {
@@ -359,15 +517,18 @@ JS_FORM_PREVIEW = r'''
 })();
 '''
 
-JS_ROUTER = r'''
+def js_router():
+    return r'''
 (function () {
-  var ids = ['home', 'about', 'partners', 'contact'];
+  var ids = ''' + json.dumps(list(PAGES.keys())) + r''';
   function show() {
-    var id = (location.hash || '#home').slice(1);
+    var parts = (location.hash || '#home').slice(1).split('/');
+    var id = parts[0], anchor = parts[1];
     if (ids.indexOf(id) < 0) id = 'home';
     ids.forEach(function (p) { document.getElementById('page-' + p).hidden = (p !== id); });
     document.querySelectorAll('.nav-links.open').forEach(function (l) { l.classList.remove('open'); });
-    window.scrollTo(0, 0);
+    var el = anchor && document.getElementById(anchor);
+    if (el) el.scrollIntoView(); else window.scrollTo(0, 0);
   }
   window.addEventListener('hashchange', show);
   show();
@@ -379,14 +540,24 @@ FONTS = '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="p
 def jsonld():
     data = {"@context": "https://schema.org", "@type": "Organization", "name": NAME,
             "url": DOMAIN + "/", "logo": DOMAIN + "/assets/img/propodium-icon-512.png",
-            "slogan": TAGLINE, "foundingDate": "2009",
-            "description": PAGES["home"][1],
-            "areaServed": ["United States", "Mexico", "Canada", "Brazil"]}
+            "slogan": "The Support Behind Every Great Event.", "foundingDate": "2019",
+            "description": PAGES["home"][2]}
     return '<script type="application/ld+json">' + json.dumps(data) + '</script>'
+
+def site_href(depth):
+    pre = "../" * depth
+    def href(pid, anchor=None):
+        f = PAGES[pid][0]
+        url = (pre or "./") if f == "index.html" else pre + f
+        return url + ("#" + anchor if anchor else "")
+    return href
+
+def a(s): return s.replace("&", "&amp;")
 
 def build_site():
     if os.path.exists(SITE): shutil.rmtree(SITE)
-    os.makedirs(os.path.join(SITE, "assets", "css")); os.makedirs(os.path.join(SITE, "assets", "js")); os.makedirs(os.path.join(SITE, "assets", "img"))
+    for d in ["assets/css", "assets/js", "assets/img", "events"]:
+        os.makedirs(os.path.join(SITE, d))
     shutil.copy(os.path.join(BASE, "style.css"), os.path.join(SITE, "assets", "css", "style.css"))
     open(os.path.join(SITE, "assets", "js", "main.js"), "w").write(JS_COMMON + JS_FORM_SITE)
     open(os.path.join(SITE, "assets", "img", "propodium-logo.svg"), "w").write(logo_light)
@@ -395,49 +566,49 @@ def build_site():
     for src, dst in [("icon-32.png", "favicon-32.png"), ("icon-180.png", "apple-touch-icon.png"),
                      ("icon-512.png", "assets/img/propodium-icon-512.png"), ("logo-dark-1200.png", "assets/img/og-image.png")]:
         shutil.copy(os.path.join(IN, src), os.path.join(SITE, dst))
-    href = lambda p: "./" if p == "home" else FILES[p]
-    for pid, (title, desc) in PAGES.items():
-        body = {"home": home, "about": about, "partners": partners}.get(pid)
-        main = body(href) if body else contact(href, False)
-        url = DOMAIN + "/" + ("" if pid == "home" else FILES[pid])
+    for pid, (f, title, desc) in PAGES.items():
+        depth = f.count("/")
+        pre = "../" * depth
+        href = site_href(depth)
+        url = DOMAIN + "/" + ("" if f == "index.html" else f)
         html = f'''<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>{title.replace("&", "&amp;")}</title>
-<meta name="description" content="{desc.replace("&", "&amp;")}">
+<title>{a(title)}</title>
+<meta name="description" content="{a(desc)}">
 <link rel="canonical" href="{url}">
 <meta name="theme-color" content="#0A1C21">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="{NAME_HTML}">
-<meta property="og:title" content="{title.replace("&", "&amp;")}">
-<meta property="og:description" content="{desc.replace("&", "&amp;")}">
+<meta property="og:title" content="{a(title)}">
+<meta property="og:description" content="{a(desc)}">
 <meta property="og:url" content="{url}">
 <meta property="og:image" content="{DOMAIN}/assets/img/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="favicon.svg" type="image/svg+xml">
-<link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
-<link rel="manifest" href="site.webmanifest">
+<link rel="icon" href="{pre}favicon.svg" type="image/svg+xml">
+<link rel="icon" href="{pre}favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="{pre}apple-touch-icon.png">
+<link rel="manifest" href="{pre}site.webmanifest">
 {FONTS}
-<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="{pre}assets/css/style.css">
 {jsonld() if pid == "home" else ""}
 </head>
 <body>
 <a class="sr-only" href="#main">Skip to content</a>
 {header(pid, href)}
 <main id="main">
-{main}
+{body_for(pid, href, False)}
 </main>
 {footer(href)}
-<script src="assets/js/main.js"></script>
+<script src="{pre}assets/js/main.js"></script>
 </body>
 </html>
 '''
-        open(os.path.join(SITE, FILES[pid]), "w").write(html)
+        open(os.path.join(SITE, f), "w").write(html)
     open(os.path.join(SITE, "robots.txt"), "w").write(f"User-agent: *\nAllow: /\n\nSitemap: {DOMAIN}/sitemap.xml\n")
-    urls = "".join(f"  <url><loc>{DOMAIN}/{'' if p == 'home' else f}</loc></url>\n" for p, f in FILES.items())
+    urls = "".join(f"  <url><loc>{DOMAIN}/{'' if v[0] == 'index.html' else v[0]}</loc></url>\n" for v in PAGES.values())
     open(os.path.join(SITE, "sitemap.xml"), "w").write(f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{urls}</urlset>\n')
     open(os.path.join(SITE, "site.webmanifest"), "w").write(json.dumps({
         "name": NAME, "short_name": "ProPodium", "start_url": "/", "display": "browser",
@@ -446,24 +617,22 @@ def build_site():
                   {"src": "/apple-touch-icon.png", "sizes": "180x180", "type": "image/png"}]}, indent=2))
 
 def build_preview():
-    href = lambda p: "#" + p
+    href = lambda p, anchor=None: "#" + p + ("/" + anchor if anchor else "")
     css = open(os.path.join(BASE, "style.css")).read()
     fav = "data:image/svg+xml;base64," + base64.b64encode(icon_svg.encode()).decode()
     pages = ""
-    for pid in ["home", "about", "partners", "contact"]:
-        body = {"home": home, "about": about, "partners": partners}.get(pid)
-        main = body(href) if body else contact(href, True)
-        pages += f'<div id="page-{pid}" class="page"{" hidden" if pid != "home" else ""}>\n{header(pid, href)}\n<main>\n{main}\n</main>\n{footer(href)}\n</div>\n'
+    for pid in PAGES:
+        pages += f'<div id="page-{pid}" class="page"{" hidden" if pid != "home" else ""}>\n{header(pid, href)}\n<main>\n{body_for(pid, href, True)}\n</main>\n{footer(href)}\n</div>\n'
     html = f'''<title>ProPodium Events Site</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<meta name="description" content="{PAGES["home"][1].replace("&", "&amp;")}">
+<meta name="description" content="{a(PAGES["home"][2])}">
 <link rel="icon" href="{fav}">
 {FONTS}
 <style>
 {css}
 </style>
 {pages}
-<script>{JS_COMMON}{JS_FORM_PREVIEW}{JS_ROUTER}</script>
+<script>{JS_COMMON}{JS_FORM_PREVIEW}{js_router()}</script>
 '''
     open(os.path.join(OUT, "preview.html"), "w").write(html)
 
