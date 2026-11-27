@@ -235,13 +235,13 @@ SITE_PHONE = "(737) 202-7261"
 SITE_PHONE_TEL = "+17372027261"
 
 HERO_TITLE = "The ground operations team behind your event."
-HERO_TEXT = ("VIP and sponsor arrivals, airport greeters, on-site coordinators and executive transportation, "
+HERO_TEXT = ("VIP and corporate hospitality arrivals, airport greeters, on-site coordinators and executive transportation, "
              "handled from first arrival to last departure. Trusted at F1, the Super Bowl and the FIFA World Cup since 2019.")
 HERO_LINE = ["Since 2019", "United States", "Mexico", "Canada", "Brazil"]
 
 PACKAGES_TITLE = "Three ways we support your event"
 PACKAGES = [
-    ("VIP & Sponsor Arrival", "Airport and FBO greeters, arrival coordination and a single point of contact for your VIP and sponsor guests."),
+    ("VIP & Hospitality Arrival", "Airport and FBO greeters, arrival coordination and a single point of contact for your VIP and corporate hospitality guests."),
     ("Talent & Executive Movement", "Executive vehicles and coordination for artists, speakers and executives. Discreet, punctual and built around your schedule."),
     ("Full Event Ground Operations", "Everything above, plus on-site coordinators, group shuttle logistics and a dedicated lead on the ground for the full run of your event."),
 ]
@@ -258,7 +258,7 @@ WHO_TITLE = "Built for event organizers"
 WHO_TEXT = ("Directors of operations, hospitality leads and producers who need every guest welcomed, moved and looked after, "
             "without managing a dozen vendors.")
 WHO_ALSO = [
-    ("Sponsors", "Executive and VIP transportation, airport greeters and guest welcome for your hosted guests."),
+    ("Hospitality companies & agencies", "Executive and VIP transportation, airport greeters and guest welcome for your hosted guests."),
     ("Event-transport companies", "We don't compete with you. We work alongside you as an extension of your team."),
 ]
 

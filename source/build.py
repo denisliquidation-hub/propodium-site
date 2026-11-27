@@ -53,7 +53,7 @@ PAGES = {
     "home": ("index.html", "Pro Podium Events & Hospitality | The Ground Operations Team Behind Your Event",
              HERO_TEXT),
     "about": ("about.html", "About | Pro Podium Events & Hospitality",
-              "Since 2019, Pro Podium Events & Hospitality has supported event organizers, sponsors and event-transport companies at Formula 1, the Super Bowl, the FIFA World Cup and more."),
+              "Since 2019, Pro Podium Events & Hospitality has supported event organizers, hospitality companies and agencies, and event-transport companies at Formula 1, the Super Bowl, the FIFA World Cup and more."),
     "services": ("services.html", "Services | Pro Podium Events & Hospitality",
                  "Executive & VIP transportation, on-site event coordinators, airport greeters & FBO meet-and-greet, and group transportation & shuttle logistics."),
     "events": ("events.html", "Events | Pro Podium Events & Hospitality",
@@ -146,7 +146,7 @@ def page_hero(eyebrow, title, text, italic=True):
 COUNTRIES = [("United States", "USA"), ("Mexico", "MEX"), ("Canada", "CAN"), ("Brazil", "BRA")]
 EVENT_TYPES = ["Corporate events", "Conferences", "Concerts", "Motorsport", "Car and motorcycle shows", "Major sporting events"]
 AUDIENCES = [("Event organizers", "Every guest is welcomed, moved, and looked after without a detail missed."),
-             ("Sponsors", "Executive and VIP transportation, airport greeters, and guest welcome for your guests."),
+             ("Hospitality companies & agencies", "Executive and VIP transportation, airport greeters, and guest welcome for your guests."),
              ("Event-transport companies", "We don&rsquo;t compete with you. We work alongside you as an extension of your team.")]
 PILLARS = [("Experience", "Supporting some of the world&rsquo;s most demanding events since 2019."),
            ("Reliability", "We know what it takes to deliver when the stakes are high."),
@@ -334,7 +334,7 @@ def about(href):
     return f'''{page_hero("About us", f"About {NAME_HTML}", HERITAGE)}
 <section class="section"><div class="wrap about-grid">
   <div class="prose">
-    <p class="lead">{NAME_HTML} is the operational partner behind some of the world&rsquo;s most demanding events. Since 2019, we have supported event organizers, sponsors, and event-transport companies, making sure every guest is welcomed, moved, and looked after without a detail missed.</p>
+    <p class="lead">{NAME_HTML} is the operational partner behind some of the world&rsquo;s most demanding events. Since 2019, we have supported event organizers, hospitality companies and agencies, and event-transport companies, making sure every guest is welcomed, moved, and looked after without a detail missed.</p>
     <p>From Formula 1 in Austin, Miami, and Las Vegas to the Super Bowl, NBA All-Star Game, PGA, Kentucky Derby, SXSW, and the FIFA World Cup, we know what it takes to deliver when the stakes are high.</p>
     <h2>What we do</h2>
     <ul>{svc}</ul>
@@ -348,7 +348,7 @@ def about(href):
     <dl>
       <div><dt>Supporting events since</dt><dd>2019</dd></div>
       <div><dt>Countries</dt><dd>United States, Mexico, Canada, Brazil</dd></div>
-      <div><dt>We support</dt><dd>Event organizers, sponsors, and event-transport companies</dd></div>
+      <div><dt>We support</dt><dd>Event organizers, hospitality companies and agencies, and event-transport companies</dd></div>
     </dl>
     <a class="btn btn-ink" href="{href("contact")}">{CTA_BUTTON}</a>
   </aside>
