@@ -53,6 +53,11 @@ CATS = [
      "Race Champions Spotlight (Miami)", ["Recent Circuit Winners: Max Verstappen, Lando Norris, Oscar Piastri"],
      "Photo of the Miami Grand Prix circuit with palm trees and hospitality suites.",
      [("Dates", "April 30 – May 2, 2027"), ("Location", "Miami, FL"), F1_NOTE], ["f1miami@propodiumevents.com"], anchor="f1-miami"),
+   E("Formula 1 — Canadian Grand Prix (Montreal, Canada)", "F1 Montreal",
+     "Held at Circuit Gilles Villeneuve on Île Notre-Dame, the Canadian Grand Prix turns downtown Montreal into a race-week festival, with bridge and island access restrictions, packed Old Montreal and downtown hotels, and private jet arrivals at Montréal–Trudeau (YUL). Pro Podium Events provides bilingual (English/French) on-site coordinators, VIP hospitality transfers, and executive fleet staging between the airport, downtown hotels, and the circuit.",
+     "Race Champions Spotlight (Montreal)", ["Most Wins: Lewis Hamilton and Michael Schumacher (7 wins each)", "Recent Circuit Winners: Max Verstappen, George Russell"],
+     "Photo of Circuit Gilles Villeneuve on Île Notre-Dame with the Montreal skyline in the background.",
+     [("Dates", "May 21–23, 2027 (Sprint weekend)"), ("Location", "Montreal, Canada — Circuit Gilles Villeneuve"), ("Notes", "Official F1 2027 calendar (round 7)")], ["f1montreal@propodiumevents.com"], anchor="f1-montreal"),
    E("Formula 1 — Las Vegas Grand Prix (Las Vegas, NV)", "F1 Las Vegas",
      "Racing down the iconic Las Vegas Strip at night creates unprecedented road closures and security perimeters. Pro Podium Events specializes in navigating Strip barricade protocols, private jet arrivals at Harry Reid (LAS) and Henderson, and 24-hour VIP nightlife and paddock transfers.",
      "Race Champions Spotlight (Las Vegas)", ["Recent Circuit Winners: Max Verstappen, George Russell"],
@@ -262,7 +267,7 @@ EVENTS_HOME_TEXT = ("Since 2019, Pro Podium Events has supported guest transport
                     "at the world's most demanding events.")
 # (label, category page id, events)
 EVENTS_HOME = [
-    ("Motorsport", "ev-motorsport", ["F1 Austin", "F1 Miami", "F1 Las Vegas", "F1 Mexico City", "F1 São Paulo", "NASCAR"]),
+    ("Motorsport", "ev-motorsport", ["F1 Austin", "F1 Miami", "F1 Montreal", "F1 Las Vegas", "F1 Mexico City", "F1 São Paulo", "NASCAR"]),
     ("Major Sporting Events", "ev-sports", ["Super Bowl", "FIFA World Cup", "FIFA Women's World Cup", "NBA All-Star", "PGA Tour", "Kentucky Derby"]),
     ("Festivals, Film & Culture", "ev-festivals", ["SXSW", "ACL Fest", "The Oscars", "Coachella", "Cannes Film Festival", "Lollapalooza USA", "Lollapalooza Brazil", "Monaco Yacht Show"]),
     ("Corporate Conferences & Trade Shows", "ev-business", ["CES", "World Economic Forum", "IMEX America", "TomorrowX", "Money 20/20 USA"]),
